@@ -900,7 +900,7 @@ div.scrollmenu a:hover {
 			  curyear=year;
 			  console.log(curroll);
 			  $("#atte1").append("<tr><td>"+user+"</td><td>"+name+"</td></tr>"); 
-              $("#atte2").append('<tr><td><a class="abc" href="https://api.whatsapp.com/send?phone=91'+phone+'"><span style="color:blue;">'+phone+'</span></a></td><td> '+mail+'</td></tr>');
+              $("#atte2").append('<tr><td><a class="abc" target="blank" href="https://api.whatsapp.com/send?phone=91'+phone+'"><span style="color:blue;">'+phone+'</span></a></td><td> '+mail+'</td></tr>');
    }  
 		   });if(sn==0){
 		       alert("Wrong Credentials!!.Wait for 10 seconds and then reload the page (ctrl+r) to continue.");
@@ -1071,11 +1071,11 @@ function searchdata(rn1,deptse,yearse){
               snapshot.forEach(function(childSnapshot) {
 			           var key1 = childSnapshot.key;
                        var childData1 = childSnapshot.val();
-			           $("#attee3").append('</br><span style="color: #993300;"><b>'+key1+': </b></span><a href="'+childData1+'"><span style="color: blue;">Click Here</span></a>');   
+			           $("#attee3").append('</br><span style="color: #993300;"><b>'+key1+': </b></span><a target="blank" href="'+childData1+'"><span style="color: blue;">Click Here</span></a>');   
 			  });
 			  }); 
   $("#attee1").append("<tr><td>"+rn1+"</td><td>"+name+"</td></tr>"); 
-  $("#attee2").append('<tr><td><a class="abc" href="https://api.whatsapp.com/send?phone=91'+phone+'"><span style="color:blue;">'+phone+'</span></a></td><td> '+email+'</td></tr>');
+  $("#attee2").append('<tr><td><a class="abc" target="blank" href="https://api.whatsapp.com/send?phone=91'+phone+'"><span style="color:blue;">'+phone+'</span></a></td><td> '+email+'</td></tr>');
    childSnapshot.forEach(function(childSnapshot){
    var key = childSnapshot.key;
    var childData = childSnapshot.val();
