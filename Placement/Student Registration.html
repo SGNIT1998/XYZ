@@ -8,6 +8,7 @@
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -689,8 +690,8 @@ div.scrollmenu a:hover {
               <div></br>
       <span style="color:green;"><p><b>2. Student's Record</b>
 	  <input class="button" type="button" value="Show Data"  onclick="javascript:showplacedata(dept1.value,year1.value)" /></br></p>
-   <center> <table id="placed"  style="color:black;" font size="0.8">
-        <tr>
+   <center> <table id="placedtab"  style="color:black;" font size="0.8">
+       <thead> <tr>
                      <th >
                       <label for-" Name"><span style="color:brown;"><b><center>S.N.</center></b></span></label>
                       </th>
@@ -707,7 +708,8 @@ div.scrollmenu a:hover {
                       <label for-" Name"><span style="color:brown;">Package</span></label>
                       </th>
                       
-        </tr>
+        </tr></thead>
+		<tbody id="placed"></tbody>
 </table></center>
 </div>
           </div>
@@ -883,6 +885,17 @@ div.scrollmenu a:hover {
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.easing.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
   <script src="js/custom.js"></script>
   <script src="contactform/contactform.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
@@ -992,8 +1005,9 @@ div.scrollmenu a:hover {
              alert("Enter Year"); 
           }
       else{
-          var mytb1 = document.getElementById("placed"); 
-  mytb1.getElementsByTagName("tbody")[0].innerHTML=mytb1.rows[0].innerHTML;
+  $("#placedtab").dataTable().fnDestroy();
+  var mytb1 = document.getElementById("placedtab"); 
+  $("#placed").empty();
   var playersRef =firebase.database().ref(year1+"/"+dept1);
   var sn=0;
   playersRef.once("value").then(function(snapshot) {
@@ -1022,9 +1036,15 @@ div.scrollmenu a:hover {
                  pac=pac+" | "+pak;});}
            });
 		   }$("#placed").append("<tr><td>"+sn+"</td><td>"+RollNo+"</td><td>"+name+"</td><td>"+com+"</td><td>"+pac+"</td></tr>"); });
+		    jQuery(document).ready( function () {
+     $('#placedtab').DataTable({
+	 dom: 'Bfrtip',
+        buttons: [
+            'copy','excel', 'pdf', 'print'
+        ]});
 		   });
      
-  }}
+  });}}
              function studentReg()
           {
               document.getElementById("studentReg").style.display = "block";
